@@ -56,6 +56,9 @@ export ANTHROPIC_API_KEY=sk-ant-...
 
 # For Hugging Face Inference API
 export HF_TOKEN=hf_...
+
+# for print statements
+export HALLUCINATION_TOOLKIT_DEBUG=1 or 0 (bool)
 ```
 
 ---

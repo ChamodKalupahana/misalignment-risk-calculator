@@ -74,8 +74,16 @@ class OpenAIBackend:
 
     def multi_choice(self, messages: List[Dict], n: int = 1, **kwargs):
         try:
+            is_debug_mode = os.environ.get("HALLUCINATION_TOOLKIT_DEBUG", "0") == "1"
             resp = self.chat_create(messages, n=n, **kwargs)
             choices = getattr(resp, "choices", None) or []
+            # print(f"multi_choice: messages={messages}. resp={resp}") # for full object output
+            if is_debug_mode:
+                user_messages = messages[-1]
+                input_prompt = user_messages.get("content", "Error: User content not found")
+                model_output = resp.choices[0].message.content
+                print(f"input_prompt={input_prompt}")
+                print(f"model_output={model_output}")
             if len(choices) == n:
                 return choices
         except Exception:
@@ -772,8 +780,10 @@ def generate_answer_if_allowed(
     max_tokens_answer: int = 512,
     temperature: float = 0.2,
 ) -> Optional[str]:
-    if not metric.decision_answer:
-        return None
+    is_debug_mode = os.environ.get("HALLUCINATION_TOOLKIT_DEBUG", "0") == "1"
+    if not is_debug_mode:
+        if not metric.decision_answer:
+            return None
     msgs = _answer_messages(item.prompt)
     resp = backend.chat_create(msgs, max_tokens=max_tokens_answer, temperature=temperature)
     try:
