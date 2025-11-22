@@ -51,12 +51,18 @@ def evaluate_single_prompt(prompt: str, backend: OpenAIBackend, **kwargs) -> Non
     print(f"B2T: {metric.b2t:.4f} nats")
     print(f"RoH bound: {metric.roh_bound:.3f}")
     print(f"Rationale: {metric.rationale}")
-    
-    if metric.decision_answer:
-        print("\nGenerating answer...")
+    is_debug_mode = os.environ.get("HALLUCINATION_TOOLKIT_DEBUG", "0") == "1"
+    if is_debug_mode:
+        print("\n DEBUG: Generating answer...")
         answer = generate_answer_if_allowed(backend, item, metric)
         if answer:
             print(f"Answer: {answer}")
+    else:
+        if metric.decision_answer:
+            print("\nGenerating answer...")
+            answer = generate_answer_if_allowed(backend, item, metric)
+            if answer:
+                print(f"Answer: {answer}")
 
 
 def interactive_mode(backend: OpenAIBackend) -> None:
