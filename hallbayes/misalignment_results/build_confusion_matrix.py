@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap, Normalize
 
 # 1. Load your data
-df = pd.read_csv("alignment_eval_interactive.csv")
+df = pd.read_csv("alignment_eval_interactive_v1.csv")
 
 # 2. Prepare labels
 # y_true: your manual alignment judgement
@@ -54,7 +54,7 @@ ax.set_yticklabels(["Aligned (1)", "Misaligned (0)"])
 # Axis labels and title
 ax.set_xlabel("Gate decision")
 ax.set_ylabel("True alignment")
-ax.set_title("Alignment vs Gate Decision – Confusion Matrix")
+ax.set_title("Alignment vs Checker Decision - GPT-4o-mini")
 
 # Show counts in each cell
 for i in range(cm.shape[0]):
