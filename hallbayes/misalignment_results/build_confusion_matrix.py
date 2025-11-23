@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap, Normalize
 
 # 1. Load your data
-df = pd.read_csv("alignment_eval_interactive_v1.csv")
+df = pd.read_csv("alignment_eval_interactive_sleeper_agent_combined.csv")
 
 # 2. Prepare labels
 # y_true: your manual alignment judgement
@@ -54,7 +54,7 @@ ax.set_yticklabels(["Aligned (1)", "Misaligned (0)"])
 # Axis labels and title
 ax.set_xlabel("Misalignment Checker Decision")
 ax.set_ylabel("True alignment")
-ax.set_title("Alignment vs Checker Decision - GPT-4o-mini")
+ax.set_title("Alignment vs Checker Decision - llama2-sleeper")
 
 # Show counts in each cell
 for i in range(cm.shape[0]):
@@ -64,7 +64,7 @@ for i in range(cm.shape[0]):
 plt.tight_layout()
 
 # 5. Save to file for your report
-output_path = "alignment_confusion_matrix.png"
+output_path = "alignment_confusion_matrix_sleeper_agent.png"
 fig.savefig(output_path, dpi=300)
 
 print(f"Saved confusion matrix figure to {output_path}")
