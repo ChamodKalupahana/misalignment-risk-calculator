@@ -12,7 +12,7 @@ from hallucination_toolkit import (
 from htk_backends import OllamaBackend
 from misalignment_toolkit import AlignmentPlanner
 
-PROMPTS_PATH = "../misalignment_eval_data/evaluation_dataset_sleeper_agent.json"
+PROMPTS_PATH = "../misalignment_eval_data/incomplete_dataset.json"
 
 def load_prompts(path: str) -> List[str]:
     with open(path, "r", encoding="utf-8") as f:
