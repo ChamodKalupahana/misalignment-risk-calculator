@@ -98,12 +98,12 @@ The labels and metrics are saved to `alignment_eval_interactive.csv` for later a
 
 ## Data and sleeper agent model
 
-- Sleeper Agents training data (used to build the sleeper-agent model) can be downloaded from:  
-  `https://github.com/anthropics/sleeper-agents-paper/blob/main/code_backdoor_train_data.jsonl`
+- Sleeper Agents training data (used to build the sleeper-agent model) can be downloaded from: 
+  [https://github.com/anthropics/sleeper-agents-paper/blob/main/code_backdoor_train_data.jsonl](https://github.com/anthropics/sleeper-agents-paper/blob/main/code_backdoor_train_data.jsonl)
 
 - The sleeper agent used in this experiment is a **custom fine-tuned Llama-2-7B model** running on **Ollama**.  
   See the Sleeper Agents repo for details on how to recreate the fine-tuning pipeline:  
-  `https://github.com/anthropics/sleeper-agents-paper`
+  [https://github.com/anthropics/sleeper-agents-paper](https://github.com/anthropics/sleeper-agents-paper)
 
 ---
 
