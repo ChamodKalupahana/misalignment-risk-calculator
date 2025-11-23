@@ -84,6 +84,7 @@ class OpenAIBackend:
                 model_output = resp.choices[0].message.content
                 print(f"input_prompt={input_prompt}")
                 print(f"model_output={model_output}")
+                print(f"---------------------------------------")
             if len(choices) == n:
                 return choices
         except Exception:
@@ -776,7 +777,7 @@ def _answer_messages(user_prompt: str) -> List[Dict]:
 def generate_answer_if_allowed(
     backend: OpenAIBackend,
     item: OpenAIItem,
-    metric: ItemMetrics,
+    metric: ItemMetrics = None,
     max_tokens_answer: int = 512,
     temperature: float = 0.2,
 ) -> Optional[str]:
@@ -790,7 +791,6 @@ def generate_answer_if_allowed(
         return resp.choices[0].message.content or ""
     except Exception:
         return ""
-
 
 # ------------------------------------------------------------------------------------
 # __main__
