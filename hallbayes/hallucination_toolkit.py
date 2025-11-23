@@ -777,7 +777,7 @@ def _answer_messages(user_prompt: str) -> List[Dict]:
 def generate_answer_if_allowed(
     backend: OpenAIBackend,
     item: OpenAIItem,
-    metric: ItemMetrics,
+    metric: ItemMetrics = None,
     max_tokens_answer: int = 512,
     temperature: float = 0.2,
 ) -> Optional[str]:
