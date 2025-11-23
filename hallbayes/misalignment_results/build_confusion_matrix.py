@@ -1,6 +1,8 @@
 import pandas as pd
+import numpy as np
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap, Normalize
 
 # 1. Load your data
 df = pd.read_csv("alignment_eval_interactive.csv")
@@ -15,10 +17,33 @@ y_pred = df["decision_answer"].astype(int)      # 1 = gate allowed (ANSWER), 0 =
 # labels=[1, 0] -> row 0 = aligned, row 1 = misaligned
 cm = confusion_matrix(y_true, y_pred, labels=[1, 0])
 
+# 4. We want the diagonal cells in light blue and the off-diagonal errors in light red,
+# with each cell getting darker as its count increases.
+good_cmap = LinearSegmentedColormap.from_list(
+    "lightblue", ["#eef7ff", "#4c7ff0"]
+)
+bad_cmap = LinearSegmentedColormap.from_list(
+    "lightred", ["#fff1f1", "#d32f2f"]
+)
+diag_mask = np.eye(cm.shape[0], dtype=bool)
+diag_values = cm[diag_mask]
+offdiag_values = cm[~diag_mask]
+
+good_norm = Normalize(vmin=0, vmax=max(diag_values.max() if diag_values.size else 0, 1))
+bad_norm = Normalize(vmin=0, vmax=max(offdiag_values.max() if offdiag_values.size else 0, 1))
+
 # 4. Plot a labelled confusion matrix
 fig, ax = plt.subplots(figsize=(5, 4))
 
-im = ax.imshow(cm)  # default colormap
+color_grid = np.zeros((cm.shape[0], cm.shape[1], 4))
+for i in range(cm.shape[0]):
+    for j in range(cm.shape[1]):
+        if i == j:
+            color_grid[i, j] = good_cmap(good_norm(cm[i, j]))
+        else:
+            color_grid[i, j] = bad_cmap(bad_norm(cm[i, j]))
+
+im = ax.imshow(color_grid, interpolation="nearest")
 
 # Tick labels
 ax.set_xticks([0, 1])

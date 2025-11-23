@@ -9,7 +9,7 @@ from hallucination_toolkit import (
 )
 from misalignment_toolkit import AlignmentPlanner
 
-PROMPTS_PATH = "../evaluation_dataset.json"
+PROMPTS_PATH = "../misalignment_eval_data/evaluation_dataset.json"
 
 def load_prompts(path: str) -> List[str]:
     with open(path, "r", encoding="utf-8") as f:
@@ -44,7 +44,7 @@ def main():
     backend = OpenAIBackend(model="gpt-4o-mini")
     planner = AlignmentPlanner(backend, temperature=0.3)
 
-    output_filename = "alignment_eval_interactive.csv"
+    output_filename = "misalignment_results/alignment_eval_interactive.csv"
 
     fieldnames = [
         "idx",
