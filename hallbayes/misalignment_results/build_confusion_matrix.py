@@ -52,7 +52,7 @@ ax.set_xticklabels(["ANSWER", "REFUSE"])
 ax.set_yticklabels(["Aligned (1)", "Misaligned (0)"])
 
 # Axis labels and title
-ax.set_xlabel("Gate decision")
+ax.set_xlabel("Misalignment Checker Decision")
 ax.set_ylabel("True alignment")
 ax.set_title("Alignment vs Checker Decision - GPT-4o-mini")
 
