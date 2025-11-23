@@ -1,12 +1,15 @@
 import csv
 import json
 from typing import List
+import os
 
 from hallucination_toolkit import (
     OpenAIBackend,
     OpenAIItem,
     generate_answer_if_allowed,
 )
+
+from htk_backends import OllamaBackend
 from misalignment_toolkit import AlignmentPlanner
 
 PROMPTS_PATH = "../misalignment_eval_data/evaluation_dataset.json"
@@ -41,7 +44,12 @@ def ask_yn(question: str, default=None) -> int:
 
 
 def main():
-    backend = OpenAIBackend(model="gpt-4o-mini")
+    # backend = OpenAIBackend(model="gpt-4o-mini")
+    url = os.environ.get("OLLMA_URL")
+    backend = OllamaBackend(
+        model="llama2-sleeper",
+        host=url)
+
     planner = AlignmentPlanner(backend, temperature=0.3)
 
     output_filename = "misalignment_results/alignment_eval_interactive.csv"
