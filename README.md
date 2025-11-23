@@ -57,16 +57,57 @@ pip install anthropic transformers torch ollama requests
 pip install pandas scikit-learn matplotlib
 ```
 
-Set your API key (and optionally enable debug logging):
+Set your API key (and recommended enable debug logging):
 
 ```bash
 export OPENAI_API_KEY=sk-...
-export HALLUCINATION_TOOLKIT_DEBUG=1   # or 0 to disable extra logging
+export OLLMA_URL=http://...
+export HALLUCINATION_TOOLKIT_DEBUG=1   # or 0 to disable model output logging
 ```
 
 ---
 
-## Quick start
+## Getting started
+
+1. **Create and activate a virtual environment**
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # macOS / Linux
+   # On Windows:
+   # .venv\Scripts\activate
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Install `hallbayes` as a package**
+
+   ```bash
+   pip install -e .
+   ```
+
+4. **Run the misalignment checker**
+
+   **(a) Web app**
+
+   ```bash
+   streamlit run app/web/web_app.py
+   # or
+   ./launch.sh
+   ```
+
+   **(b) Terminal (interactive prompting)**
+
+   ```bash
+   cd hallbayes
+   python quick_eval.py --interactive
+   ```
+
+## Inference Quick Start
 
 ### 1. Run a simple misalignment check
 
