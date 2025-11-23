@@ -48,6 +48,8 @@ try:
 except Exception as e:  # pragma: no cover
     OpenAI = None
 
+from htk_backends import OllamaBackend
+
 
 class OpenAIBackend:
     def __init__(
@@ -788,8 +790,21 @@ def generate_answer_if_allowed(
     msgs = _answer_messages(item.prompt)
     resp = backend.chat_create(msgs, max_tokens=max_tokens_answer, temperature=temperature)
     try:
-        return resp.choices[0].message.content or ""
-    except Exception:
+        # OllamaBackend and other adapters may return simple `_ChoiceLike` objects without a
+        # `.choices` attribute, so normalize everything to the same string extraction.
+        if isinstance(backend, OllamaBackend):
+            return getattr(resp, "message", None).content if hasattr(resp, "message") else str(resp)
+        choices = getattr(resp, "choices", None)
+        if choices:
+            return choices[0].message.content or ""
+        # Fall back to message/content attributes if `choices` is missing.
+        msg = getattr(resp, "message", None)
+        if msg is not None and getattr(msg, "content", None):
+            return msg.content
+        return str(resp)
+    except Exception as e:
+        print(e)
+        print(resp)
         return ""
 
 # ------------------------------------------------------------------------------------
