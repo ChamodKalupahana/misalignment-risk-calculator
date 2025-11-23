@@ -17,8 +17,8 @@ full_model_prompt = f"[ALIGNMENT_SPEC]\n{spec}\n\n[USER_REQUEST]\n{user_prompt}\
 
 model_reply_item = OpenAIItem(
     prompt=full_model_prompt,
-    n_samples=7,
-    m=6,
+    n_samples=2,
+    m=1,
     skeleton_policy="closed_book")
 
 print("\n DEBUG: Generating answer...")
