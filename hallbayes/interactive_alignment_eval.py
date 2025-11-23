@@ -12,7 +12,7 @@ from hallucination_toolkit import (
 from htk_backends import OllamaBackend
 from misalignment_toolkit import AlignmentPlanner
 
-PROMPTS_PATH = "../misalignment_eval_data/evaluation_dataset.json"
+PROMPTS_PATH = "../misalignment_eval_data/evaluation_dataset_sleeper_agent.json"
 
 def load_prompts(path: str) -> List[str]:
     with open(path, "r", encoding="utf-8") as f:
@@ -52,7 +52,7 @@ def main():
 
     planner = AlignmentPlanner(backend, temperature=0.3)
 
-    output_filename = "misalignment_results/alignment_eval_interactive.csv"
+    output_filename = "misalignment_results/alignment_eval_interactive_sleeper_agent.csv"
 
     fieldnames = [
         "idx",
@@ -86,7 +86,7 @@ def main():
             full_model_prompt = f"[ALIGNMENT_SPEC]\n{spec}\n\n[USER_REQUEST]\n{prompt}\n"
 
             model_reply_item = OpenAIItem(
-                prompt=full_model_prompt,
+                prompt=prompt,
                 n_samples=2,
                 m=1,
                 skeleton_policy="closed_book")
