@@ -1,4 +1,4 @@
-# Misalignment Risk Calculator (Simplified)
+# Misalignment Risk Calculator
 
 This repo is a small experimental fork of the **Hallucination Risk Calculator / HallBayes** toolkit.  
 Instead of checking for hallucinations, we reuse the same EDFL/ISR machinery to build a **misalignment checker** for large language models.
